@@ -4,21 +4,25 @@ class Cell {
 	private boolean isRevealed;
 	private boolean isMine;
 	private boolean isFlagged;
+	private int nearbyMines;
 	
 	// No Arg Constructor
 	public Cell() {
 	}
 	
-	public Cell(boolean isRevealed, boolean isMine, boolean isFlagged) {
+	//Constructor
+	public Cell(boolean isRevealed, boolean isMine, boolean isFlagged, int nearbyMines) {
 		this.isRevealed = isRevealed;
 		this.isMine = isMine;
 		this.isFlagged = isFlagged;
+		this.nearbyMines = nearbyMines;
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("Test");
-		System.out.println("Test");
+	
+	public void revealCell() {
+		this.isRevealed = true;
 	}
-
+	
+	public void flagCell() {
+		this.isFlagged = true;
+	}
 }
