@@ -1,4 +1,4 @@
-# MineSweeper_Team1
+# MineSweeper By Team1
 
 ## Team Members
 
