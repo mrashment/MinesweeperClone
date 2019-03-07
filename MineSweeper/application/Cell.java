@@ -25,4 +25,14 @@ class Cell {
 	public void flagCell() {
 		this.isFlagged = true;
 	}
+	
+	public int countNearbyMines(Cell currentCell) {
+		int nearMines = currentCell.nearbyMines;
+		return nearMines;
+	}
+	
+	public boolean mineCheck(Cell currentCell) {
+		boolean status = currentCell.isMine;
+		return status;
+	}
 }
