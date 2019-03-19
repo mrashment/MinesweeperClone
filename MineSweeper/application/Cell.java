@@ -31,9 +31,13 @@ class Cell {
 	public void unflagCell() {
 		this.isFlagged = false;
 	}
+	// setter method for nearby Cells
+	public void setMineCount(int mines) {
+		this.nearbyMines = mines;
+	}
 	// Getter method for nearby Cells
 	public int countNearbyMines() {
-		int nearMines = this.nearbyMines;
+		int nearMines = nearbyMines;
 		return nearMines;
 	}
 	// Getter method checking if Cell is a mine or not
@@ -54,6 +58,9 @@ class Cell {
 		}
 		if (this.isFlagged) {
 			result += "F";
+		}
+		if (this.nearbyMines > 0) {
+			result += Integer.toString(this.nearbyMines);
 		}
 		return result;
 	}
