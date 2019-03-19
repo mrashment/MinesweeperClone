@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Board">
+   <children>
+      <Label layoutX="106.0" layoutY="14.0" text="Minesweeper" textFill="#f80000">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="scoreLbl" layoutX="339.0" layoutY="53.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="restartBtn" layoutX="14.0" layoutY="261.0" mnemonicParsing="false" text="Restart" />
+      <Button fx:id="startBtn" layoutX="334.0" layoutY="261.0" mnemonicParsing="false" text="Start" />
+      <GridPane layoutX="134.0" layoutY="120.0" prefHeight="60.0" prefWidth="133.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="111.0" />
+            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="72.0" GridPane.columnIndex="1" />
+            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="79.0" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="89.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
