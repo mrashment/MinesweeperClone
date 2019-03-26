@@ -5,6 +5,7 @@ class Cell {
 	private boolean isMine;
 	private boolean isFlagged;
 	private int nearbyMines;
+	private int x,y;
 	
 	// No Arg Constructor
 	public Cell() {
@@ -16,6 +17,8 @@ class Cell {
 		this.isMine = isMine;
 		this.isFlagged = isFlagged;
 		this.nearbyMines = nearbyMines;
+		this.x = 0;
+		this.y = 0;
 	}
 	
 	// Setter method for revealing Cells
@@ -39,19 +42,16 @@ class Cell {
 		this.nearbyMines = mines;
 	}
 	// Getter method for nearby Cells
-	public int countNearbyMines() {
-		int nearMines = nearbyMines;
-		return nearMines;
+	public int getMineCount() {
+		return this.nearbyMines;
 	}
 	// Getter method checking if Cell is a mine or not
 	public boolean mineCheck() {
-		boolean status = this.isMine;
-		return status;
+		return this.isMine;
 	}
 	//Getter method for checking if a cell is flagged
 	public boolean flagCheck() {
-		boolean flagStatus = this.isFlagged;
-		return flagStatus;
+		return this.isFlagged;
 	}
 	// To String Method containing result of the current cell clicked
 	public String toString() {
@@ -59,8 +59,19 @@ class Cell {
 		if (this.isMine) {
 			result = "*";
 		}else {
-			result = "c";
+			result = "" + this.nearbyMines;
 		}
 		return result;
+	}
+	
+	public int getX() {
+		return this.x;
+	}
+	public int getY() {
+		return this.y;
+	}
+	public void setCoords(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 }

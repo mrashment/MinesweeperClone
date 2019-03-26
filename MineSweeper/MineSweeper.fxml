@@ -20,7 +20,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="restartBtn" layoutX="14.0" layoutY="261.0" mnemonicParsing="false" text="Restart" />
+      <Button fx:id="restartBtn" layoutX="14.0" layoutY="261.0" mnemonicParsing="false" onAction="#clearBtn" text="Restart" />
       <Button fx:id="startBtn" layoutX="334.0" layoutY="261.0" mnemonicParsing="false" onAction="#startPressed" text="Start" />
       <GridPane fx:id="boardPane" layoutX="15.0" layoutY="53.0" prefHeight="208.0" prefWidth="368.0" visible="false">
         <columnConstraints>
