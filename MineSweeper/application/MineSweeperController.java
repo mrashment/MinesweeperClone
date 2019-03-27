@@ -1,15 +1,21 @@
 package application;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
 public class MineSweeperController {
 	@FXML
@@ -21,6 +27,12 @@ public class MineSweeperController {
 
 	@FXML
 	private GridPane boardPane;
+	
+    @FXML
+    private CheckBox flagCheckBox;
+    
+    @FXML
+    private Button surrenderBtn;
 
 	private Board game;
 
@@ -42,19 +54,33 @@ public class MineSweeperController {
 		} else {
 			pressedButtonCol = GridPane.getColumnIndex(pressedButton);
 		}
-		//game.getCellArray()[pressedButtonRow][pressedButtonCol].revealCell();
-		game.revealCell(game.getCell(pressedButtonCol, pressedButtonRow), pressedButtonCol, pressedButtonRow);
-		System.out.println(game.getCell(pressedButtonCol, pressedButtonRow).toString());
-		this.checkReveal();
-		game.checkStatus(pressedButtonRow, pressedButtonCol);
-		//System.out.println(pressedButtonRow + ", " + pressedButtonCol + " revealed");
+		if(flagCheckBox.isSelected()) {
+			if(pressedButton.getText().equals("F")) {
+				pressedButton.setText("");
+				game.getCell(pressedButtonCol, pressedButtonRow).unflagCell();
+			} else {
+				pressedButton.setText("F");
+				game.getCell(pressedButtonCol, pressedButtonRow).flagCell();
+			}
+		} else {
+			//game.getCellArray()[pressedButtonRow][pressedButtonCol].revealCell();
+			game.revealCell(game.getCell(pressedButtonCol, pressedButtonRow), pressedButtonCol, pressedButtonRow);
+			System.out.println(game.getCell(pressedButtonCol, pressedButtonRow).toString());
+			this.checkReveal();
+			game.checkStatus(pressedButtonRow, pressedButtonCol);
+			//System.out.println(pressedButtonRow + ", " + pressedButtonCol + " revealed");
+		}
 
 	}
 
 	@FXML
 	private void startPressed(ActionEvent event) {
 		this.boardPane.setVisible(true);
-		this.game = new Board(6,6);
+		this.restartBtn.setVisible(true);
+		this.startBtn.setVisible(false);
+		this.flagCheckBox.setVisible(true);
+		this.surrenderBtn.setVisible(true);
+		this.game = new Board(10,10);
 		this.buildBoard();
 
 	}
@@ -81,6 +107,27 @@ public class MineSweeperController {
 				a.setVisible(false);
 			}
 		}
+	}
+	
+	
+	@FXML
+	private void restart(ActionEvent event) {
+		Stage primaryStage = (Stage) this.scoreLbl.getScene().getWindow();
+		primaryStage.close();
+		FXMLLoader loader = new FXMLLoader();
+		AnchorPane mineLayout;
+		
+		try {
+			loader.setLocation(Main.class.getResource("/MineSweeper.fxml"));
+			mineLayout = (AnchorPane) loader.load();
+			Scene scene = new Scene (mineLayout);
+			primaryStage.setScene(scene);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		primaryStage.show();
 	}
 	
 	void checkReveal() {

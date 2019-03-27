@@ -37,7 +37,7 @@ public class Board {
 	private Cell getRandomCell() {
 		Cell returnCell;
 		//Boolean isRevealed = false;
-		while(mines < 1) {
+		while(mines < 10) {
 			returnCell = new Cell(false, true, false, 0);
 			this.mines++;
 			return returnCell;
