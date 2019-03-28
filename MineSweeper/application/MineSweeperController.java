@@ -3,10 +3,10 @@ package application;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+//import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
+//import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -116,9 +116,30 @@ public class MineSweeperController {
 				cellLabel.setPrefSize(81, 31);
 				cellLabel.setTextAlignment(TextAlignment.CENTER);
 				boardPane.add(cellLabel, i, j);
-				if(thisCell.mineCheck()) {
+				switch(thisCell.toString()) {
+				case "*":
 					cellLabel.setTextFill(Color.RED);
+					break;
+				case "1":
+					cellLabel.setTextFill(Color.DARKBLUE);
+					break;
+				case "2":
+					cellLabel.setTextFill(Color.DARKGREEN);
+					break;
+				case "3":
+					cellLabel.setTextFill(Color.DARKRED);
+					break;
+				case "4":
+					cellLabel.setTextFill(Color.BLUEVIOLET);
+					break;
+				case "5":
+					cellLabel.setTextFill(Color.DARKGOLDENROD);
+					break;
+				default:
+					cellLabel.setTextFill(Color.BROWN);
+					break;
 				}
+				cellLabel.setStyle("-fx-font-weight: bold");
 				GridPane.setFillWidth(cellLabel, true);
 				cellLabel.setMaxWidth(Double.MAX_VALUE);
 				cellLabel.setAlignment(Pos.CENTER);
