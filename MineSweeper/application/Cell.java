@@ -76,5 +76,4 @@ class Cell {
 		this.x = x;
 		this.y = y;
 	}
-	// To String Method containing result of the current cell clicked
 }
