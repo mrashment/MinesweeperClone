@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,6 +15,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -33,6 +36,9 @@ public class MineSweeperController {
     
     @FXML
     private Button surrenderBtn;
+    
+    @FXML
+    private Label resultLabel;
 
 	private Board game;
 
@@ -62,13 +68,28 @@ public class MineSweeperController {
 				pressedButton.setText("F");
 				game.getCell(pressedButtonCol, pressedButtonRow).flagCell();
 			}
+		} else if(pressedButton.getText().equals("F")){
+			
 		} else {
 			//game.getCellArray()[pressedButtonRow][pressedButtonCol].revealCell();
 			game.revealCell(game.getCell(pressedButtonCol, pressedButtonRow), pressedButtonCol, pressedButtonRow);
 			System.out.println(game.getCell(pressedButtonCol, pressedButtonRow).toString());
 			this.checkReveal();
-			game.checkStatus(pressedButtonRow, pressedButtonCol);
+			//game.checkStatus(pressedButtonRow, pressedButtonCol);
 			//System.out.println(pressedButtonRow + ", " + pressedButtonCol + " revealed");
+			if(game.checkWin()) {
+				resultLabel.setText("You win!");
+				resultLabel.setTextFill(Color.GREEN);
+				resultLabel.setVisible(true);
+				this.flagCheckBox.setSelected(true);
+				this.flagCheckBox.setVisible(false);
+				//this.clearBoard();
+			} else if(game.checkLoss()) {
+				resultLabel.setText("You lose!");
+				resultLabel.setTextFill(Color.RED);
+				resultLabel.setVisible(true);
+				this.clearBoard();
+			}
 		}
 
 	}
@@ -95,6 +116,12 @@ public class MineSweeperController {
 				cellLabel.setPrefSize(81, 31);
 				cellLabel.setTextAlignment(TextAlignment.CENTER);
 				boardPane.add(cellLabel, i, j);
+				if(thisCell.mineCheck()) {
+					cellLabel.setTextFill(Color.RED);
+				}
+				GridPane.setFillWidth(cellLabel, true);
+				cellLabel.setMaxWidth(Double.MAX_VALUE);
+				cellLabel.setAlignment(Pos.CENTER);
 				cellLabel.toBack();
 			}
 		}
@@ -153,6 +180,14 @@ public class MineSweeperController {
 						}
 					}
 				}
+			}
+		}
+	}
+	
+	void clearBoard() {
+		for(Node a: boardPane.getChildren()) {
+			if(a != null && a instanceof Button) {
+				a.setVisible(false);
 			}
 		}
 	}

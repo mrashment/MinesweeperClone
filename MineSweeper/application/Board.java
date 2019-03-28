@@ -8,24 +8,32 @@ public class Board {
 	private Cell[][] cellArray;
 	private int mines;
 
+	
+	//This constructor initialized the board and fills each portion of the board array with a cell, randomly placed.
 	public Board(int width, int height) {
 		this.mines = 0;
 		this.cellArray = new Cell[width][height];
-
+		
+		//this generates cells for the board
 		for(int i = 0; i < cellArray.length; i++) {
 			for(int j = 0; j < cellArray[i].length; j++) {
 				this.cellArray[i][j] = this.getRandomCell();
 			}
 		}
+		//this function shuffles the board to create the randomness
 		shuffle(this.cellArray);
+		
+		//this sets the number of mines surrounding each cell
 		getSurroundingMines(this.cellArray);
+		
+		//this generates coordinates to hold the location of each cell
 		for(int i = 0; i < cellArray.length; i++) {
 			for(int j = 0; j < cellArray[i].length; j++) {
 				this.cellArray[i][j].setCoords(i, j);;
 			}
 		}
 	}
-
+	//getter for cellArray
 	public Cell[][] getCellArray() {
 		return cellArray;
 	}
@@ -33,11 +41,12 @@ public class Board {
 	//public void setCellArray(Cell[][] cellArray) {
 	//	this.cellArray = cellArray;
 	//}
-
+	//generates a cell to fill in the 2d array
 	private Cell getRandomCell() {
 		Cell returnCell;
 		//Boolean isRevealed = false;
-		while(mines < 10) {
+		//first generates 10 bombs
+		while(mines < 1) {
 			returnCell = new Cell(false, true, false, 0);
 			this.mines++;
 			return returnCell;
@@ -45,7 +54,7 @@ public class Board {
 		returnCell = new Cell(false, false, false, 0);
 		return returnCell;
 	}
-
+	//getter for an individual cell
 	public Cell getCell(int row, int column) {
 		return cellArray[row][column];
 	}
@@ -66,7 +75,7 @@ public class Board {
 			}
 		}
 	}
-
+	//this function sets the amount of mines surrounding each cell
 	void getSurroundingMines(Cell[][] a) {
 		int mineCount = 0;
 		for(int i = 0; i < a.length; i++) {
@@ -85,6 +94,8 @@ public class Board {
 			}
 		}
 	}
+	
+	//this function works recursively with revealCell(Cell a, int x, int y) to reveal adjacent blank cells
 	private void revealSurrounding(Cell a, int x, int y) {
 		ArrayList<Cell> adjacentList = new ArrayList<>();
 		for(int i = 0; i < this.cellArray.length; i++) {
@@ -102,18 +113,47 @@ public class Board {
 			this.revealCell(adjacentList.get(i), adjacentList.get(i).getX(), adjacentList.get(i).getY());
 		}
 	}
+	
+	//this works recursively with revealSurrounding(Cell a, int x, int y) to reveal cells and recursively reveal adjacent blank cells
 	public void revealCell(Cell a, int x, int y) {
 		a.revealCell();
 		System.out.println(x + ", " + y + " revealed");
-		if(a.getMineCount() == 0) {
+		if(a.getMineCount() == 0 && !a.mineCheck()) {
 			this.revealSurrounding(a, x, y);
 		}
 	}
-
+	
+	//this function checks whether a bomb was revealed and determines a win or loss.
 	public void checkStatus(int row, int col) {
 		if(cellArray[col][row].mineCheck()) {
 			System.out.println("You lose.");
 		}
+	}
+	public boolean checkWin() {
+		boolean result = true;
+		for(int i = 0; i < cellArray.length; i++) {
+			for(int j = 0; j < cellArray[i].length; j++) {
+				if(!cellArray[i][j].checkRevealed() && !cellArray[i][j].mineCheck() || 
+						cellArray[i][j].checkRevealed() && cellArray[i][j].mineCheck()) {
+					result = false;
+					break;
+				}
+			}
+		}
+		return result;
+	}
+	
+	public boolean checkLoss() {
+		boolean result = false;
+		for(int i = 0; i < cellArray.length; i++) {
+			for(int j = 0; j < cellArray[i].length; j++) {
+				if(cellArray[i][j].checkRevealed() && cellArray[i][j].mineCheck()) {
+					result = true;
+					break;
+				}
+			}
+		}
+		return result;
 	}
 
 }
