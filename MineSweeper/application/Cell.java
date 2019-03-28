@@ -58,7 +58,9 @@ class Cell {
 		String result = "";
 		if (this.isMine) {
 			result = "*";
-		}else {
+		}else if(this.nearbyMines == 0){
+			result = " ";;
+		} else {
 			result = "" + this.nearbyMines;
 		}
 		return result;
