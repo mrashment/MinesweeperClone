@@ -25,3 +25,4 @@ The board class is used to create a list to store Cells in and plays a large par
 At this point in time, there are no known bugs in our game. If one is found we will move swiftly to get rid of it!
 
 ## UML Diagram
+![alt text](https://raw.githubusercontent.com/cmcoplen/MineSweeper_Team1/master/Images/MineSweeperUML.png)
