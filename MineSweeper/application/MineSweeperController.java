@@ -91,7 +91,7 @@ public class MineSweeperController {
 				resultLabel.setVisible(true);
 				this.flagCheckBox.setSelected(true);
 				this.flagCheckBox.setVisible(false);
-				//this.clearBoard();
+				this.clearBoard();
 			} else if(game.checkLoss()) {
 				resultLabel.setText("You lose!");
 				resultLabel.setTextFill(Color.RED);
