@@ -20,8 +20,11 @@ The board class is used to create a list to store Cells in and plays a large par
 
 ### GUI
 
+The GUI was made in Java FXML, it is the visual representation of the board class. Everything that happens visually is stored in a Board object.
+
 ## Bugs and Unresolved Issues
 
 At this point in time, there are no known bugs in our game. If one is found we will move swiftly to get rid of it!
 
 ## UML Diagram
+![UML Diagram](Images/MineSweeperUML.png)
