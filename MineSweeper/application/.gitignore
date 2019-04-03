@@ -2,3 +2,6 @@
 /Cell.class
 /Board.class
 /MineSweeperController.class
+/BoardTest.class
+/CellTest.class
+/MineSweeperControllerTest.class
