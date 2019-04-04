@@ -48,11 +48,16 @@ public class MineSweeperController {
 
 	@FXML
 	private void btnPressed(ActionEvent event) {
+		//gets an instance of the button that was pressed
 		Button pressedButton = (Button) event.getSource();
 		//pressedButton.setVisible(false);
+		
+		
 		int pressedButtonRow = 0;
 		int pressedButtonCol =  0;
 		//System.out.println(GridPane.getRowIndex(pressedButton) + ", " + GridPane.getColumnIndex(pressedButton));
+		
+		//this grabs the coordinates of what button was pressed so it knows what cell to reveal
 		if(GridPane.getRowIndex(pressedButton) == null) {
 			pressedButtonRow = 0;
 		} else {
@@ -63,6 +68,8 @@ public class MineSweeperController {
 		} else {
 			pressedButtonCol = GridPane.getColumnIndex(pressedButton);
 		}
+		
+		//this determines the action when the button is clicked. Flag or not.
 		if(flagCheckBox.isSelected()) {
 			if(pressedButton.getGraphic() != null) {
 				pressedButton.setGraphic(null);
@@ -77,6 +84,8 @@ public class MineSweeperController {
 		} else if(pressedButton.getGraphic() != null){
 			
 		} else {
+			//Runs the code when flag is not selected. Reveals the cell and recursively reveal adjacent empty cells.
+			
 			//game.getCellArray()[pressedButtonRow][pressedButtonCol].revealCell();
 			game.revealCell(game.getCell(pressedButtonCol, pressedButtonRow), pressedButtonCol, pressedButtonRow);
 			
@@ -102,6 +111,8 @@ public class MineSweeperController {
 
 	}
 
+	
+	//instantiates local variables and sets up the board to be played
 	@FXML
 	private void startPressed(ActionEvent event) {
 		this.boardPane.setVisible(true);
@@ -114,6 +125,8 @@ public class MineSweeperController {
 
 	}
 
+	
+	//fills the board and sets the colors for numbers and images for bombs
 	private void buildBoard() {
 		for(int i = 0; i < game.getCellArray().length; i++) {
 			for(int j = 0; j < game.getCellArray()[i].length; j++) {
@@ -169,6 +182,8 @@ public class MineSweeperController {
 		}
 	}
 	
+	
+	//Reveals all cells on board
 	@FXML
 	private void clearBtn(ActionEvent event) {
 		for(Node a: boardPane.getChildren()) {
@@ -178,7 +193,7 @@ public class MineSweeperController {
 		}
 	}
 	
-	
+	//restarts the game.
 	@FXML
 	private void restart(ActionEvent event) {
 		Stage primaryStage = (Stage) this.scoreLbl.getScene().getWindow();
@@ -199,6 +214,8 @@ public class MineSweeperController {
 		primaryStage.show();
 	}
 	
+	
+	//Call this function to reveal buttons that are covering revealed cells.
 	void checkReveal() {
 		for(int i = 0; i < game.getCellArray().length; i++) {
 			for(int j = 0; j < game.getCellArray()[i].length; j++) {
@@ -226,6 +243,8 @@ public class MineSweeperController {
 		}
 	}
 	
+	
+	//function to clear the board without a button press
 	void clearBoard() {
 		for(Node a: boardPane.getChildren()) {
 			if(a != null && a instanceof Button) {
