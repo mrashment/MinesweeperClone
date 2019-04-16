@@ -14,5 +14,7 @@ public class CellButton extends Button {
 	private boolean isFlagged;
 	private int nearbyMines;
 	private int x,y;
+	
+	Cell cell;
 
 }
