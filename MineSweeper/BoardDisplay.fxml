@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="446.0" prefWidth="856.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BoardDisplayController">
+   <children>
+      <SplitPane dividerPositions="0.29797979797979796" prefHeight="446.0" prefWidth="856.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="surrenderBtn" layoutX="82.0" layoutY="257.0" mnemonicParsing="false" onAction="#clearBtn" text="Surrender" visible="true" />
+                  <Button fx:id="startBtn" layoutX="84.0" layoutY="77.0" mnemonicParsing="false" onAction="#startPressed" prefHeight="31.0" prefWidth="83.0" text="Start" />
+                  <Label layoutX="31.0" text="Minesweeper" textFill="#f80000">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="historyBtn" layoutX="71.0" layoutY="369.0" mnemonicParsing="false" onAction="#showHistory" text="Show History" visible="true" />
+                  <TextField fx:id="sizeXField" layoutX="80.0" layoutY="129.0" prefHeight="31.0" prefWidth="56.0" />
+                  <Label layoutX="138.0" layoutY="134.0" text="X" />
+                  <Label layoutX="46.0" layoutY="134.0" text="Size:" />
+                  <TextField fx:id="sizeYField" layoutX="150.0" layoutY="129.0" prefHeight="31.0" prefWidth="56.0" />
+                  <RadioButton fx:id="easyRadio" layoutX="123.0" layoutY="180.0" mnemonicParsing="false" text="Easy" />
+                  <RadioButton fx:id="mediumRadio" layoutX="123.0" layoutY="201.0" mnemonicParsing="false" text="Medium" />
+                  <RadioButton fx:id="hardRadio" layoutX="123.0" layoutY="222.0" mnemonicParsing="false" text="Hard" />
+                  <Label layoutX="46.0" layoutY="180.0" text="Difficulty:" />
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="230.0" prefWidth="265.0">
+               <children>
+                  <CheckBox fx:id="flagCheckBox" layoutX="526.0" layoutY="409.0" mnemonicParsing="false" text="Flag" visible="true" />
+                  <Label fx:id="resultLabel" layoutX="281.0" layoutY="409.0" prefHeight="21.0" prefWidth="92.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
