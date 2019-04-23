@@ -5,6 +5,10 @@
 /BoardTest.class
 /CellTest.class
 /MineSweeperControllerTest.class
+<<<<<<< HEAD
 /test.class
 /BoardDisplayController.class
 /BoardDisplayController$1.class
+=======
+/CellButton.class
+>>>>>>> refs/heads/cellButton
