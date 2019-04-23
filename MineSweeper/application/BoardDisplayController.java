@@ -74,20 +74,23 @@ public class BoardDisplayController {
 		//get user input for size and difficulty
 		int sizeX = 1;
 		int sizeY = 1;
+		int total = 1;
 		try {
 			sizeX = Integer.parseInt(sizeXField.getText());
 			sizeY = Integer.parseInt(sizeYField.getText());
+			total = sizeX*sizeY;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if (easyRadio.isSelected()) {
-			mineTotal = 5;
+			mineTotal = (int)(0.1*total);
 		}
 		else if (mediumRadio.isSelected()) {
-			mineTotal = 10;
+			mineTotal = (int)(0.15*total);
 		}
 		else if (hardRadio.isSelected()) {
-			mineTotal = 15;
+			mineTotal = (int)(0.2*total);
 		}
 		else {System.out.println("Somehow no difficulty is selected.");}
 		
