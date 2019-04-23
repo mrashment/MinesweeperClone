@@ -51,16 +51,14 @@ public class BoardDisplayController {
 	private Label resultLabel;
 	
 	private Board game;
-	
 	private int mineTotal;
-	
-	
 	private EventHandler<ActionEvent> btnHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent e) {
 			btnPressed(e);
 		}
 	};
+	
 	
 	public void initialize() {
 		easyRadio.setSelected(true);
@@ -72,6 +70,7 @@ public class BoardDisplayController {
 	// Event Listener on Button[#startBtn].onAction
 	@FXML
 	public void startPressed(ActionEvent event) {
+		
 		//get user input for size and difficulty
 		int sizeX = 1;
 		int sizeY = 1;
@@ -97,11 +96,13 @@ public class BoardDisplayController {
 		boardPane = new GridPane();
 		for (int i = 0; i < sizeX; i++) {
 			ColumnConstraints column = new ColumnConstraints(20);
+			column.setFillWidth(true);
 			this.boardPane.getColumnConstraints().add(column);
 			System.out.println("Column added");
 		}
 		for (int i = 0; i < sizeY; i++) {
 			RowConstraints row = new RowConstraints(20);
+			row.setFillHeight(true);
 			this.boardPane.getRowConstraints().add(row);
 			System.out.println("Row added");
 		}
@@ -114,12 +115,14 @@ public class BoardDisplayController {
 		this.game = new Board(sizeX,sizeY,mineTotal);
 		this.buildBoard();
 	}
+	
 	//fills the board and sets the colors for numbers and images for bombs
-	private void buildBoard() {
+	public void buildBoard() {
 		for(int i = 0; i < game.getCellArray().length; i++) {
 			for(int j = 0; j < game.getCellArray()[i].length; j++) {
 				Button button = new Button();
 				button.setOnAction(btnHandler);
+				button.setMaxSize(150, 150);
 				boardPane.add(button, i, j);
 				Cell thisCell = game.getCell(i, j);
 				Label cellLabel = new Label();
@@ -174,7 +177,7 @@ public class BoardDisplayController {
 	}
 	
 	@FXML
-	private void btnPressed(ActionEvent event) {
+	public void btnPressed(ActionEvent event) {
 		//gets an instance of the button that was pressed
 		Button pressedButton = (Button) event.getSource();
 		//pressedButton.setVisible(false);
@@ -239,7 +242,7 @@ public class BoardDisplayController {
 	}
 	
 	//Call this function to reveal buttons that are covering revealed cells.
-	void checkReveal() {
+	public void checkReveal() {
 		for(int i = 0; i < game.getCellArray().length; i++) {
 			for(int j = 0; j < game.getCellArray()[i].length; j++) {
 				if(game.getCell(i, j).checkRevealed()) {
@@ -267,7 +270,7 @@ public class BoardDisplayController {
 	}
 	
 	//function to clear the board without a button press
-	void clearBoard() {
+	public void clearBoard() {
 		for(Node a: boardPane.getChildren()) {
 			if(a != null && a instanceof Button) {
 				a.setVisible(false);
@@ -277,7 +280,7 @@ public class BoardDisplayController {
 	
 	//Reveals all cells on board
 	@FXML
-	private void clearBtn(ActionEvent event) {
+	public void clearBtn(ActionEvent event) {
 		for(Node a: boardPane.getChildren()) {
 			if(a != null && a instanceof Button) {
 				a.setVisible(false);
