@@ -16,5 +16,10 @@ public class CellButton extends Button {
 	private int x,y;
 	
 	Cell cell;
+	
+	public CellButton() {
+		super();
+		
+	}
 
 }
