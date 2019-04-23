@@ -9,16 +9,22 @@ public class CellButton extends Button {
 
 	}
 	
-	private boolean isRevealed;
-	private boolean isMine;
-	private boolean isFlagged;
-	private int nearbyMines;
-	private int x,y;
+//	private boolean isRevealed;
+//	private boolean isMine;
+//	private boolean isFlagged;
+//	private int nearbyMines;
+//	private int x,y;
 	
-	Cell cell;
+	private Board board;
 	
-	public CellButton() {
+	private Cell cell;
+	
+	public CellButton(Board b) {
 		super();
+		this.board = b;
+		
+		//this.cell = board.getCell(row, column)
+		
 		
 	}
 
