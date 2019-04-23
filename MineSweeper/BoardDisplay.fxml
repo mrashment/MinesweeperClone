@@ -6,6 +6,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -27,9 +28,12 @@
                   <Label layoutX="138.0" layoutY="134.0" text="X" />
                   <Label layoutX="46.0" layoutY="134.0" text="Size:" />
                   <TextField fx:id="sizeYField" layoutX="150.0" layoutY="129.0" prefHeight="31.0" prefWidth="56.0" />
-                  <RadioButton fx:id="easyRadio" layoutX="123.0" layoutY="180.0" mnemonicParsing="false" text="Easy" />
-                  <RadioButton fx:id="mediumRadio" layoutX="123.0" layoutY="201.0" mnemonicParsing="false" text="Medium" />
-                  <RadioButton fx:id="hardRadio" layoutX="123.0" layoutY="222.0" mnemonicParsing="false" text="Hard" />
+                  <RadioButton fx:id="easyRadio" layoutX="123.0" layoutY="180.0" mnemonicParsing="false" text="Easy">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="difToggle" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="mediumRadio" layoutX="123.0" layoutY="201.0" mnemonicParsing="false" text="Medium" toggleGroup="$difToggle" />
+                  <RadioButton fx:id="hardRadio" layoutX="123.0" layoutY="222.0" mnemonicParsing="false" text="Hard" toggleGroup="$difToggle" />
                   <Label layoutX="46.0" layoutY="180.0" text="Difficulty:" />
                </children>
             </AnchorPane>

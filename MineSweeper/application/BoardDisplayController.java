@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -41,6 +42,8 @@ public class BoardDisplayController {
 	@FXML
 	private RadioButton hardRadio;
 	@FXML
+	private ToggleGroup difToggle;
+	@FXML
 	private CheckBox flagCheckBox;
 	@FXML
 	private GridPane boardPane;
@@ -49,6 +52,9 @@ public class BoardDisplayController {
 	
 	private Board game;
 	
+	private int mineTotal;
+	
+	
 	private EventHandler<ActionEvent> btnHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent e) {
@@ -56,6 +62,12 @@ public class BoardDisplayController {
 		}
 	};
 	
+	public void initialize() {
+		easyRadio.setSelected(true);
+		sizeXField.setText("5");
+		sizeYField.setText("5");
+		
+	}
 
 	// Event Listener on Button[#startBtn].onAction
 	@FXML
@@ -63,13 +75,23 @@ public class BoardDisplayController {
 		//get user input for size and difficulty
 		int sizeX = 1;
 		int sizeY = 1;
-		int difficulty = 5;
 		try {
 			sizeX = Integer.parseInt(sizeXField.getText());
 			sizeY = Integer.parseInt(sizeYField.getText());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		if (easyRadio.isSelected()) {
+			mineTotal = 5;
+		}
+		else if (mediumRadio.isSelected()) {
+			mineTotal = 10;
+		}
+		else if (hardRadio.isSelected()) {
+			mineTotal = 15;
+		}
+		else {System.out.println("Somehow no difficulty is selected.");}
+		
 		
 		//create new grid with user input
 		boardPane = new GridPane();
@@ -89,7 +111,7 @@ public class BoardDisplayController {
 		boardPane.getRowConstraints().forEach(i -> i.setPercentHeight(100/boardPane.getRowConstraints().size()));
 		boardPane.getColumnConstraints().forEach(i -> i.setPercentWidth(100/boardPane.getColumnConstraints().size()));
 		
-		this.game = new Board(sizeX,sizeY);
+		this.game = new Board(sizeX,sizeY,mineTotal);
 		this.buildBoard();
 	}
 	//fills the board and sets the colors for numbers and images for bombs

@@ -120,7 +120,7 @@ public class MineSweeperController {
 		this.startBtn.setVisible(false);
 		this.flagCheckBox.setVisible(true);
 		this.surrenderBtn.setVisible(true);
-		this.game = new Board(10,10);
+		this.game = new Board(10,10,10);
 		this.buildBoard();
 
 	}

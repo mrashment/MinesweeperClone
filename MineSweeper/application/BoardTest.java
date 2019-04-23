@@ -26,7 +26,7 @@ class BoardTest {
 		int x = r.nextInt(1);
 		int y = r.nextInt(2);
 		
-		Board testBoard = new Board(10,10);
+		Board testBoard = new Board(10,10,10);
 		Cell[][] cellArray = new Cell [x][y];
 		Cell[][] a = new Cell [1][1];
 	}
