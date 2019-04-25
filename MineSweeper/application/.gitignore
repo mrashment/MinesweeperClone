@@ -9,6 +9,10 @@
 /test.class
 /BoardDisplayController.class
 /BoardDisplayController$1.class
+<<<<<<< HEAD
 =======
 /CellButton.class
 >>>>>>> refs/heads/cellButton
+=======
+/BoardDisplayController$2.class
+>>>>>>> branch 'BoardDisplay' of https://github.iu.edu/mla3/Phase2

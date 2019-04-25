@@ -15,6 +15,10 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.RadioButton;
@@ -49,6 +53,13 @@ public class BoardDisplayController {
 	private GridPane boardPane;
 	@FXML
 	private Label resultLabel;
+	@FXML
+	private Button clearBtn;
+	@FXML
+	private TextField timeField;
+	
+	private long startTime;
+	Timer timer;
 	
 	private Board game;
 	private int mineTotal;
@@ -70,6 +81,8 @@ public class BoardDisplayController {
 	// Event Listener on Button[#startBtn].onAction
 	@FXML
 	public void startPressed(ActionEvent event) {
+		
+		
 		
 		//get user input for size and difficulty
 		int sizeX = 1;
@@ -117,6 +130,18 @@ public class BoardDisplayController {
 		
 		this.game = new Board(sizeX,sizeY,mineTotal);
 		this.buildBoard();
+		
+		startTime = System.currentTimeMillis();
+		
+		//keep track of time
+		TimerTask countUp = new TimerTask() {
+			public void run() {
+				//calculate time elapsed and update timer area
+				timeField.setText(Long.toString((System.currentTimeMillis() - startTime) / 1000));
+			}
+		};
+		timer = new Timer();
+		timer.scheduleAtFixedRate(countUp, 1000, 1000);
 	}
 	
 	//fills the board and sets the colors for numbers and images for bombs
@@ -233,11 +258,13 @@ public class BoardDisplayController {
 				resultLabel.setVisible(true);
 				this.flagCheckBox.setSelected(true);
 				this.flagCheckBox.setVisible(false);
+				timer.cancel();
 				this.clearBoard();
 			} else if(game.checkLoss()) {
 				resultLabel.setText("You lose!");
 				resultLabel.setTextFill(Color.RED);
 				resultLabel.setVisible(true);
+				timer.cancel();
 				this.clearBoard();
 			}
 		}
@@ -289,6 +316,14 @@ public class BoardDisplayController {
 				a.setVisible(false);
 			}
 		}
+	}
+	
+	@FXML
+	public void clearPressed(ActionEvent event) {				
+		boardPane.getChildren().clear();
+		timer.cancel();
+		timeField.setText("0");
+		resultLabel.setText("");
 	}
 	
 	@FXML
