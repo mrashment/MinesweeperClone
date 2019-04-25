@@ -1,5 +1,11 @@
 package application;
 
+
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.Writer;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -16,6 +22,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -258,18 +267,38 @@ public class BoardDisplayController {
 				resultLabel.setVisible(true);
 				this.flagCheckBox.setSelected(true);
 				this.flagCheckBox.setVisible(false);
-				timer.cancel();
 				this.clearBoard();
+				try {
+					Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults.txt", true);
+					fileWriter.append("Win");
+					fileWriter.append("\n");
+					fileWriter.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				}
 			} else if(game.checkLoss()) {
 				resultLabel.setText("You lose!");
 				resultLabel.setTextFill(Color.RED);
 				resultLabel.setVisible(true);
-				timer.cancel();
 				this.clearBoard();
+				try {
+				Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults.txt", true);
+				fileWriter.append("Loss");
+				fileWriter.append("\n");
+				fileWriter.close();
+				}
+				catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				}
+				
 			}
 		}
-
 	}
+	
 	
 	//Call this function to reveal buttons that are covering revealed cells.
 	public void checkReveal() {
