@@ -91,7 +91,24 @@ public class BoardDisplayController {
 		try {
 			sizeX = Integer.parseInt(sizeXField.getText());
 			sizeY = Integer.parseInt(sizeYField.getText());
+			if (sizeX > 15) {
+				sizeXField.setText("15");
+				sizeX = 15;
+			}
+			else if (sizeX < 5) {
+				sizeXField.setText("5");
+				sizeX = 5;
+			}
+			if (sizeY > 15) {
+				sizeYField.setText("15");
+				sizeY = 15;
+			}
+			else if (sizeY < 5) {
+				sizeYField.setText("5");
+				sizeY = 5;
+			}
 			total = sizeX*sizeY;
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -114,19 +131,19 @@ public class BoardDisplayController {
 			ColumnConstraints column = new ColumnConstraints(20);
 			column.setFillWidth(true);
 			this.boardPane.getColumnConstraints().add(column);
-			System.out.println("Column added");
+			//System.out.println("Column added");
 		}
 		for (int i = 0; i < sizeY; i++) {
 			RowConstraints row = new RowConstraints(20);
 			row.setFillHeight(true);
 			this.boardPane.getRowConstraints().add(row);
-			System.out.println("Row added");
+			//System.out.println("Row added");
 		}
 		rightPane.getChildren().add(boardPane);
 		boardPane.setStyle("-fx-border-color: #000000");
 		boardPane.setMinSize(rightPane.getWidth(), rightPane.getHeight()-50);
-		boardPane.getRowConstraints().forEach(i -> i.setPercentHeight(100/boardPane.getRowConstraints().size()));
-		boardPane.getColumnConstraints().forEach(i -> i.setPercentWidth(100/boardPane.getColumnConstraints().size()));
+		boardPane.getRowConstraints().forEach(i -> i.setPercentHeight(100.0/boardPane.getRowConstraints().size()));
+		boardPane.getColumnConstraints().forEach(i -> i.setPercentWidth(100.0/boardPane.getColumnConstraints().size()));
 		
 		this.game = new Board(sizeX,sizeY,mineTotal);
 		this.buildBoard();
@@ -191,8 +208,8 @@ public class BoardDisplayController {
 					cellLabel.toBack();
 				} else {
 					ImageView bombImg = new ImageView("/bomb.png");
-					bombImg.setFitHeight(31);
-					bombImg.setFitWidth(31);
+					bombImg.setFitHeight(27);
+					bombImg.setFitWidth(27);
 					cellLabel.setGraphic(bombImg);
 					boardPane.add(cellLabel, i, j);
 					GridPane.setFillWidth(cellLabel, true);
@@ -234,8 +251,8 @@ public class BoardDisplayController {
 				game.getCell(pressedButtonCol, pressedButtonRow).unflagCell();
 			} else {
 				ImageView flagImg = new ImageView("/flag.png");
-				flagImg.setFitWidth(31);
-				flagImg.setFitHeight(31);
+				flagImg.setFitWidth(20);
+				flagImg.setFitHeight(20);
 				pressedButton.setGraphic(flagImg);
 				game.getCell(pressedButtonCol, pressedButtonRow).flagCell();
 			}
@@ -256,8 +273,6 @@ public class BoardDisplayController {
 				resultLabel.setText("You win!");
 				resultLabel.setTextFill(Color.GREEN);
 				resultLabel.setVisible(true);
-				this.flagCheckBox.setSelected(true);
-				this.flagCheckBox.setVisible(false);
 				timer.cancel();
 				this.clearBoard();
 			} else if(game.checkLoss()) {
@@ -308,7 +323,7 @@ public class BoardDisplayController {
 		}
 	}
 	
-	//Reveals all cells on board
+	//Surrender button reveals all cells on board
 	@FXML
 	public void clearBtn(ActionEvent event) {
 		for(Node a: boardPane.getChildren()) {
@@ -316,6 +331,9 @@ public class BoardDisplayController {
 				a.setVisible(false);
 			}
 		}
+		resultLabel.setText("You lose!");
+		resultLabel.setTextFill(Color.RED);
+		resultLabel.setVisible(true);
 		timer.cancel();
 	}
 	
