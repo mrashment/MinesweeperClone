@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+
 import javax.print.DocFlavor.URL;
 
 import javafx.event.ActionEvent;
@@ -48,7 +50,8 @@ public class MineSweeperController {
     private Label resultLabel;
 
 	private Board game;
-
+	
+	
 
 	@FXML
 	private void btnPressed(ActionEvent event) {
@@ -108,11 +111,6 @@ public class MineSweeperController {
 				try {
 					Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults.txt", true);
 					fileWriter.append("Win");
-					
-					//for(int i = 0; i < wins.size(); i++) {
-						//fileWriter.append(wins.get(i).toString() + "\n");
-					//}
-					
 					fileWriter.append("\n");
 					fileWriter.close();
 				} catch (IOException e) {
