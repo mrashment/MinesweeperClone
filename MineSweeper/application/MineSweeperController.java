@@ -1,7 +1,11 @@
 package application;
 
 import java.io.IOException;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 import javax.print.DocFlavor.URL;
 
 import javafx.event.ActionEvent;
@@ -101,15 +105,42 @@ public class MineSweeperController {
 				this.flagCheckBox.setSelected(true);
 				this.flagCheckBox.setVisible(false);
 				this.clearBoard();
+				try {
+					Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults.txt", true);
+					fileWriter.append("Win");
+					
+					//for(int i = 0; i < wins.size(); i++) {
+						//fileWriter.append(wins.get(i).toString() + "\n");
+					//}
+					
+					fileWriter.append("\n");
+					fileWriter.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				}
 			} else if(game.checkLoss()) {
 				resultLabel.setText("You lose!");
 				resultLabel.setTextFill(Color.RED);
 				resultLabel.setVisible(true);
 				this.clearBoard();
+				try {
+				Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults.txt", true);
+				fileWriter.append("Loss");
+				fileWriter.append("\n");
+				fileWriter.close();
+				}
+				catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				}
+				
 			}
 		}
-
 	}
+	
 
 	
 	//instantiates local variables and sets up the board to be played
