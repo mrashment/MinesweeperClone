@@ -139,6 +139,7 @@ public class MineSweeperController {
 		}
 	}
 	
+	
 
 	
 	//instantiates local variables and sets up the board to be played
