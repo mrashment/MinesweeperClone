@@ -50,7 +50,7 @@ public class BoardDisplayController {
 	@FXML
 	private CheckBox flagCheckBox;
 	@FXML
-	private GridPane boardPane;
+	private GridPane boardPane = new GridPane();
 	@FXML
 	private Label resultLabel;
 	@FXML
@@ -59,7 +59,7 @@ public class BoardDisplayController {
 	private TextField timeField;
 	
 	private long startTime;
-	Timer timer;
+	Timer timer = new Timer();
 	
 	private Board game;
 	private int mineTotal;
@@ -82,7 +82,7 @@ public class BoardDisplayController {
 	@FXML
 	public void startPressed(ActionEvent event) {
 		
-		
+		this.clearPressed(event);
 		
 		//get user input for size and difficulty
 		int sizeX = 1;
@@ -316,6 +316,7 @@ public class BoardDisplayController {
 				a.setVisible(false);
 			}
 		}
+		timer.cancel();
 	}
 	
 	@FXML
