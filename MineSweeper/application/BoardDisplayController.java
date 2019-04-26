@@ -284,6 +284,7 @@ public class BoardDisplayController {
 					e.printStackTrace();
 					
 				}}
+<<<<<<< HEAD
 				else if (mediumRadio.isSelected()) {
 					
 				try {
@@ -312,6 +313,8 @@ public class BoardDisplayController {
 				}}
 				
 				
+=======
+>>>>>>> branch 'gameResults' of https://github.iu.edu/mla3/Phase2
 			} else if(game.checkLoss()) {
 				resultLabel.setText("You lose!");
 				resultLabel.setTextFill(Color.RED);
@@ -329,6 +332,7 @@ public class BoardDisplayController {
 					e.printStackTrace();
 					
 				}}
+<<<<<<< HEAD
 				
 				else if (mediumRadio.isSelected()) {
 					
@@ -359,6 +363,8 @@ public class BoardDisplayController {
 				
 						
 				
+=======
+>>>>>>> branch 'gameResults' of https://github.iu.edu/mla3/Phase2
 				
 			}
 		}
