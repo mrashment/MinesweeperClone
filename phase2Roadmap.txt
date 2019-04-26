@@ -1,0 +1,18 @@
+Roadmap
+11 - Review Code, reorganize if needed (no architectural changes)
+   - Begin work on CellButton, BoardDisplay, Tracking user data
+12 - ^^^^^
+16 - Have starting point for CellButton, BoardDisplay, Tracking user data
+   - Add further functionality
+18 - 
+19 - 
+23 - 
+25 - 
+26 - Finishing touches, unresolved bugs
+30 - Finish up presentation
+
+ToDo:
+Variable size
+difficulty
+CellButton and BoardDisplay
+User history

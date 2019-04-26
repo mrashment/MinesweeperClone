@@ -5,8 +5,18 @@
 /BoardTest.class
 /CellTest.class
 /MineSweeperControllerTest.class
+<<<<<<< HEAD
 /test.class
 /BoardDisplayController.class
 /BoardDisplayController$1.class
+<<<<<<< HEAD
+=======
+/CellButton.class
+>>>>>>> refs/heads/cellButton
+=======
 /BoardDisplayController$2.class
+<<<<<<< HEAD
 /resultDisplayController.class
+=======
+>>>>>>> branch 'BoardDisplay' of https://github.iu.edu/mla3/Phase2
+>>>>>>> refs/remotes/origin/BoardDisplay
