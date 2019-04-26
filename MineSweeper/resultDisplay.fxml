@@ -11,7 +11,7 @@
    <children>
       <AnchorPane layoutX="-62.0" layoutY="-111.0" prefHeight="547.0" prefWidth="396.0">
          <children>
-            <Label layoutX="164.0" layoutY="108.0" prefHeight="65.0" prefWidth="140.0" text="Record Times" textAlignment="CENTER">
+            <Label layoutX="172.0" layoutY="108.0" prefHeight="65.0" prefWidth="117.0" text="High Scores" textAlignment="CENTER">
                <font>
                   <Font size="22.0" />
                </font>
