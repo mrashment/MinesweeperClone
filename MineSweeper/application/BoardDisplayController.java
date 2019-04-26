@@ -284,6 +284,34 @@ public class BoardDisplayController {
 					e.printStackTrace();
 					
 				}}
+				else if (mediumRadio.isSelected()) {
+					
+				try {
+					Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults2.txt", true);
+					fileWriter.append("Win");
+					fileWriter.append("\n");
+					fileWriter.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				}}
+				
+				else if (hardRadio.isSelected()) {
+					
+				try {
+					Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults3.txt", true);
+					fileWriter.append("Win");
+					fileWriter.append("\n");
+					fileWriter.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				
+				}}
+				
+				
 			} else if(game.checkLoss()) {
 				resultLabel.setText("You lose!");
 				resultLabel.setTextFill(Color.RED);
@@ -301,6 +329,36 @@ public class BoardDisplayController {
 					e.printStackTrace();
 					
 				}}
+				
+				else if (mediumRadio.isSelected()) {
+					
+					try {
+						Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults2.txt", true);
+						fileWriter.append("Loss");
+						fileWriter.append("\n");
+						fileWriter.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+					}}
+					
+					else if (hardRadio.isSelected()) {
+						
+					try {
+						Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults3.txt", true);
+						fileWriter.append("Loss");
+						fileWriter.append("\n");
+						fileWriter.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+					
+					}}
+				
+						
+				
 				
 			}
 		}
