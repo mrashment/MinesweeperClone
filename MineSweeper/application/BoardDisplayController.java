@@ -168,9 +168,11 @@ public class BoardDisplayController {
 				Button button = new Button();
 				button.setOnAction(btnHandler);
 				button.setMaxSize(150, 150);
+				button.setStyle("-fx-border-color: #000000");
 				boardPane.add(button, i, j);
 				Cell thisCell = game.getCell(i, j);
 				Label cellLabel = new Label();
+				
 
 				if(!thisCell.mineCheck()) {
 					cellLabel.setText(thisCell.toString());
@@ -202,8 +204,11 @@ public class BoardDisplayController {
 						break;
 					}
 					cellLabel.setStyle("-fx-font-weight: bold");
+					cellLabel.setStyle("-fx-border-color: #000000");
 					GridPane.setFillWidth(cellLabel, true);
+					GridPane.setFillHeight(cellLabel, true);
 					cellLabel.setMaxWidth(Double.MAX_VALUE);
+					cellLabel.setMaxHeight(Double.MAX_VALUE);
 					cellLabel.setAlignment(Pos.CENTER);
 					cellLabel.toBack();
 				} else {
@@ -212,8 +217,11 @@ public class BoardDisplayController {
 					bombImg.setFitWidth(27);
 					cellLabel.setGraphic(bombImg);
 					boardPane.add(cellLabel, i, j);
+					cellLabel.setStyle("-fx-border-color: #000000");
 					GridPane.setFillWidth(cellLabel, true);
+					GridPane.setFillHeight(cellLabel, true);
 					cellLabel.setMaxWidth(Double.MAX_VALUE);
+					cellLabel.setMaxHeight(Double.MAX_VALUE);
 					cellLabel.setAlignment(Pos.CENTER);
 					cellLabel.toBack();
 				}

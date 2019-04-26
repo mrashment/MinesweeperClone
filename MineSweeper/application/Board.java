@@ -104,7 +104,7 @@ public class Board {
 			for(int j = 0; j < this.cellArray[i].length; j++) {
 				if((int) Math.abs(Math.sqrt((j - y) * (j - y) + (i - x) * (i - x))) == 1) {
 					//int distanceBetweenCells = (int) Math.abs(Math.sqrt((j - y) * (j - y) + (i - x) * (i - x)));
-					System.out.println("distance between (" + x + ", " + y + ") and (" + i + ", " + j + ") is " + (int) Math.abs(Math.sqrt((j - y) * (j - y) + (i - x) * (i - x))));
+					//System.out.println("distance between (" + x + ", " + y + ") and (" + i + ", " + j + ") is " + (int) Math.abs(Math.sqrt((j - y) * (j - y) + (i - x) * (i - x))));
 					if(!this.cellArray[i][j].toString().equals("*") && !this.cellArray[i][j].checkRevealed() && !this.cellArray[i][j].mineCheck()) {
 						adjacentList.add(cellArray[i][j]);
 					}
