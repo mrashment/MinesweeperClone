@@ -286,12 +286,7 @@ public class BoardDisplayController {
 				resultLabel.setText("You win!");
 				resultLabel.setTextFill(Color.GREEN);
 				resultLabel.setVisible(true);
-<<<<<<< HEAD
-				this.flagCheckBox.setSelected(true);
-				this.flagCheckBox.setVisible(false);
-=======
 				timer.cancel();
->>>>>>> refs/remotes/origin/BoardDisplay
 				this.clearBoard();
 				if (easyRadio.isSelected()) {
 					
