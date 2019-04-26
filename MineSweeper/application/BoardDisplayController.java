@@ -1,9 +1,17 @@
 package application;
 
+import javafx.fxml.FXMLLoader;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.Writer;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+
 
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -15,7 +23,12 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -283,16 +296,97 @@ public class BoardDisplayController {
 				resultLabel.setVisible(true);
 				timer.cancel();
 				this.clearBoard();
+				if (easyRadio.isSelected()) {
+					
+				try {
+					Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults.txt", true);
+					fileWriter.append("Win");
+					fileWriter.append("\n");
+					fileWriter.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				}}
+
+				else if (mediumRadio.isSelected()) {
+					
+				try {
+					Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults2.txt", true);
+					fileWriter.append("Win");
+					fileWriter.append("\n");
+					fileWriter.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				}}
+				
+				else if (hardRadio.isSelected()) {
+					
+				try {
+					Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults3.txt", true);
+					fileWriter.append("Win");
+					fileWriter.append("\n");
+					fileWriter.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				
+				}}
+				
+
 			} else if(game.checkLoss()) {
 				resultLabel.setText("You lose!");
 				resultLabel.setTextFill(Color.RED);
 				resultLabel.setVisible(true);
-				timer.cancel();
 				this.clearBoard();
+				if (easyRadio.isSelected()) {
+				try {
+				Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults.txt", true);
+				fileWriter.append("Loss");
+				fileWriter.append("\n");
+				fileWriter.close();
+				}
+				catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}}
+				
+				else if (mediumRadio.isSelected()) {
+					
+					try {
+						Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults2.txt", true);
+						fileWriter.append("Loss");
+						fileWriter.append("\n");
+						fileWriter.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+					}}
+					
+					else if (hardRadio.isSelected()) {
+						
+					try {
+						Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults3.txt", true);
+						fileWriter.append("Loss");
+						fileWriter.append("\n");
+						fileWriter.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+					
+					}}
+				
+					
+				
 			}
 		}
-
 	}
+	
 	
 	//Call this function to reveal buttons that are covering revealed cells.
 	public void checkReveal() {
@@ -355,6 +449,42 @@ public class BoardDisplayController {
 	
 	@FXML
 	public void showHistory() {
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/resultDisplay.fxml"));
+		AnchorPane dialogRoot;
+		
+		
+		try {
+			dialogRoot = (AnchorPane)loader.load();
+			Scene dialogScene = new Scene(dialogRoot);
+			Stage dialogStage = new Stage();
+			dialogStage.setScene(dialogScene);
+			resultDisplayController dialogController = (resultDisplayController) loader.getController();
+			dialogController.seteasyHigh("0");
+			dialogController.setmediumHigh("0");
+			dialogController.sethardHigh("0");
+			dialogController.seteasyWin("0");
+			dialogController.seteasyLoss("0");
+			dialogController.setmediumWin("0");
+			dialogController.setmediumLoss("0");
+			dialogController.sethardWin("0");
+			dialogController.sethardLoss("0");
+			dialogStage.show();
+			try (Scanner scanner = new Scanner(new File("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults.txt"))) {
+
+		        while (scanner.hasNext())
+		            System.out.println(scanner.next());
+
+		    } catch (FileNotFoundException e) {
+		        e.printStackTrace();
+		    }
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+			
+		
+		
 		
 	}
 	
