@@ -13,7 +13,7 @@ public class Main extends Application {
 		try {
 			primaryStage.setTitle("Minesweeper");
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("/MineSweeper.fxml"));
+			loader.setLocation(Main.class.getResource("/BoardDisplay.fxml"));
 			AnchorPane mineLayout = (AnchorPane) loader.load();
 			Scene scene = new Scene (mineLayout);
 			primaryStage.setScene(scene);

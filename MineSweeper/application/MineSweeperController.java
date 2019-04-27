@@ -30,6 +30,8 @@ public class MineSweeperController {
 	private Button restartBtn;
 	@FXML
 	private Button startBtn;
+	@FXML
+	private Button testBtn;
 
 	@FXML
 	private GridPane boardPane;
@@ -117,10 +119,16 @@ public class MineSweeperController {
 	private void startPressed(ActionEvent event) {
 		this.boardPane.setVisible(true);
 		this.restartBtn.setVisible(true);
+		this.testBtn.setVisible(true);
 		this.startBtn.setVisible(false);
 		this.flagCheckBox.setVisible(true);
 		this.surrenderBtn.setVisible(true);
-		this.game = new Board(10,10);
+
+
+		this.game = new Board(10,10,10);
+
+
+
 		this.buildBoard();
 
 	}

@@ -7,12 +7,14 @@ public class Board {
 
 	private Cell[][] cellArray;
 	private int mines;
+	private int mineTotal = 10;
 
 	
 	//This constructor initialized the board and fills each portion of the board array with a cell, randomly placed.
-	public Board(int width, int height) {
+	public Board(int width, int height, int mineTotal) {
 		this.mines = 0;
 		this.cellArray = new Cell[width][height];
+		this.mineTotal = mineTotal;
 		
 		//this generates cells for the board
 		for(int i = 0; i < cellArray.length; i++) {
@@ -46,7 +48,7 @@ public class Board {
 		Cell returnCell;
 		//Boolean isRevealed = false;
 		//first generates 10 bombs
-		while(mines < 10) {
+		while(mines < mineTotal) {
 			returnCell = new Cell(false, true, false, 0);
 			this.mines++;
 			return returnCell;
