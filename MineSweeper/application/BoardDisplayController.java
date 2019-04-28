@@ -2,6 +2,7 @@ package application;
 
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -73,6 +74,8 @@ public class BoardDisplayController {
 	
 	private long startTime;
 	Timer timer = new Timer();
+	private String time;
+	private String[] times = new String[] {"0","0","0"};
 	
 	private Board game;
 	private int mineTotal;
@@ -296,64 +299,108 @@ public class BoardDisplayController {
 				resultLabel.setTextFill(Color.GREEN);
 				resultLabel.setVisible(true);
 				timer.cancel();
+				time = timeField.getText();
+				System.out.println(time);
+				File bestTimes = new File("BestTimes.txt");
+				
+				try (Scanner scanner = new Scanner(bestTimes)) {
+					
+			        for (int i = 0; i < 3; i++) {
+			        	times[i] = scanner.nextLine();
+			        	System.out.println(times[i]);
+			        }
+			           
+
+			    } catch (FileNotFoundException e) {} 
+				try (PrintWriter timeWriter = new PrintWriter(bestTimes)) {
+					if (easyRadio.isSelected()) {
+						if (Integer.parseInt(time) < Integer.parseInt(times[0])) {
+							times[0] = time;
+						}
+						timeWriter.write(times[0] + "\n" + times[1] + "\n" + times[2]);
+						System.out.println("file written");
+					}
+					else if (mediumRadio.isSelected()) {
+						if (Integer.parseInt(time) < Integer.parseInt(times[1])) {
+							times[1] = time;
+						}
+						timeWriter.write(times[0] + "\n" + times[1] + "\n" + times[2]);
+						System.out.println("file written");
+					}
+					else if (hardRadio.isSelected()) {
+						if (Integer.parseInt(time) < Integer.parseInt(times[2])) {
+							times[2] = time;
+						}
+						timeWriter.write(times[0] + "\n" + times[1] + "\n" + times[2]);
+						System.out.println("file written");
+					}
+					timeWriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				this.clearBoard();
 				if (easyRadio.isSelected()) {
 					
-				try {
-					Writer fileWriter = new FileWriter("MineSweeperResults.txt", true);
-					fileWriter.append("Win");
-					fileWriter.append("\n");
-					fileWriter.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					try {
+						Writer fileWriter = new FileWriter("MineSweeperResults.txt", true);
+						fileWriter.append("Win");
+						fileWriter.append("\n");
+						fileWriter.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					
-				}}
+					}
+				}
 
 				else if (mediumRadio.isSelected()) {
 					
-				try {
-					Writer fileWriter = new FileWriter("MineSweeperResults2.txt", true);
-					fileWriter.append("Win");
-					fileWriter.append("\n");
-					fileWriter.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					try {
+						Writer fileWriter = new FileWriter("MineSweeperResults2.txt", true);
+						fileWriter.append("Win");
+						fileWriter.append("\n");
+						fileWriter.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					
-				}}
+					}
+				}
 				
 				else if (hardRadio.isSelected()) {
 					
-				try {
-					Writer fileWriter = new FileWriter("MineSweeperResults3.txt", true);
-					fileWriter.append("Win");
-					fileWriter.append("\n");
-					fileWriter.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					try {
+						Writer fileWriter = new FileWriter("MineSweeperResults3.txt", true);
+						fileWriter.append("Win");
+						fileWriter.append("\n");
+						fileWriter.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					
 				
-				}}
+					}
+				}
 				
 
 			} else if(game.checkLoss()) {
 				resultLabel.setText("You lose!");
 				resultLabel.setTextFill(Color.RED);
 				resultLabel.setVisible(true);
+				timer.cancel();
 				this.clearBoard();
 				if (easyRadio.isSelected()) {
-				try {
-				Writer fileWriter = new FileWriter("MineSweeperResults.txt", true);
-				fileWriter.append("Loss");
-				fileWriter.append("\n");
-				fileWriter.close();
+					try {
+						Writer fileWriter = new FileWriter("MineSweeperResults.txt", true);
+						fileWriter.append("Loss");
+						fileWriter.append("\n");
+						fileWriter.close();
+					}
+					catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-				catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}}
 				
 				else if (mediumRadio.isSelected()) {
 					
@@ -366,9 +413,10 @@ public class BoardDisplayController {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 						
-					}}
+					}
+				}
 					
-					else if (hardRadio.isSelected()) {
+				else if (hardRadio.isSelected()) {
 						
 					try {
 						Writer fileWriter = new FileWriter("MineSweeperResults3.txt", true);
@@ -380,10 +428,8 @@ public class BoardDisplayController {
 						e.printStackTrace();
 						
 					
-					}}
-				
-					
-				
+					}
+				}
 			}
 		}
 	}
@@ -470,7 +516,6 @@ public class BoardDisplayController {
 			dialogController.setmediumLoss("0");
 			dialogController.sethardWin("0");
 			dialogController.sethardLoss("0");
-			dialogStage.show();
 			try (Scanner scanner = new Scanner(new File("MineSweeperResults.txt"))) {
 
 		        while (scanner.hasNext())
@@ -479,14 +524,29 @@ public class BoardDisplayController {
 		    } catch (FileNotFoundException e) {
 		        e.printStackTrace();
 		    }
+			try (Scanner bestshow = new Scanner(new File("BestTimes.txt"))) {
+				for (int i = 0; i < 3; i++) {
+					String temp = bestshow.nextLine();
+					//if high score is still set to default
+					if (Integer.parseInt(temp) == 10000) {
+						temp = "No Data";
+					}
+		        	times[i] = temp;	        	
+		        }
+				dialogController.seteasyHigh(times[0]);
+				System.out.println(times[0]);
+				dialogController.setmediumHigh(times[1]);
+				System.out.println(times[1]);
+				dialogController.sethardHigh(times[2]);
+				System.out.println(times[2]);
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 			
+			dialogStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-			
-		
-		
-		
-	}
-	
+	}	
 }

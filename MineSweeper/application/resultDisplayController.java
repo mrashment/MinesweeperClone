@@ -92,5 +92,7 @@ public class resultDisplayController {
 		mediumLoss.setText("0");
 		hardWin.setText("0");
 		hardLoss.setText("0");
+		File bestTimes = new File("BestTimes.txt");
+		
 	}
 }
