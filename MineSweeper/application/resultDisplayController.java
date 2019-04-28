@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javafx.event.ActionEvent;
@@ -83,9 +85,9 @@ public class resultDisplayController {
 	
 
 	public void wipeHistory(ActionEvent event) {
-		easyHigh.setText("0");
-		mediumHigh.setText("0");
-		hardHigh.setText("0");
+		easyHigh.setText("No Data");
+		mediumHigh.setText("No Data");
+		hardHigh.setText("No Data");
 		easyWin.setText("0");
 		easyLoss.setText("0");
 		mediumWin.setText("0");
@@ -93,6 +95,11 @@ public class resultDisplayController {
 		hardWin.setText("0");
 		hardLoss.setText("0");
 		File bestTimes = new File("BestTimes.txt");
-		
+		try (PrintWriter timeWriter = new PrintWriter(bestTimes)) {
+			timeWriter.print("10000\n10000\n10000\n");
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
