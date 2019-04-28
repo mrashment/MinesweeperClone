@@ -181,7 +181,8 @@ public class BoardDisplayController {
 				Button button = new Button();
 				button.setOnAction(btnHandler);
 				button.setMaxSize(150, 150);
-				button.setStyle("-fx-border-color: #000000");
+				
+				button.setStyle("-fx-border-color: #d1d1d1");
 				boardPane.add(button, i, j);
 				Cell thisCell = game.getCell(i, j);
 				Label cellLabel = new Label();
@@ -217,7 +218,7 @@ public class BoardDisplayController {
 						break;
 					}
 					cellLabel.setStyle("-fx-font-weight: bold");
-					cellLabel.setStyle("-fx-border-color: #000000");
+					cellLabel.setStyle("-fx-border-color: #d1d1d1");
 					GridPane.setFillWidth(cellLabel, true);
 					GridPane.setFillHeight(cellLabel, true);
 					cellLabel.setMaxWidth(Double.MAX_VALUE);
@@ -230,7 +231,7 @@ public class BoardDisplayController {
 					bombImg.setFitWidth(27);
 					cellLabel.setGraphic(bombImg);
 					boardPane.add(cellLabel, i, j);
-					cellLabel.setStyle("-fx-border-color: #000000");
+					cellLabel.setStyle("-fx-border-color: #d1d1d1");
 					GridPane.setFillWidth(cellLabel, true);
 					GridPane.setFillHeight(cellLabel, true);
 					cellLabel.setMaxWidth(Double.MAX_VALUE);
@@ -299,7 +300,7 @@ public class BoardDisplayController {
 				if (easyRadio.isSelected()) {
 					
 				try {
-					Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults.txt", true);
+					Writer fileWriter = new FileWriter("MineSweeperResults.txt", true);
 					fileWriter.append("Win");
 					fileWriter.append("\n");
 					fileWriter.close();
@@ -312,7 +313,7 @@ public class BoardDisplayController {
 				else if (mediumRadio.isSelected()) {
 					
 				try {
-					Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults2.txt", true);
+					Writer fileWriter = new FileWriter("MineSweeperResults2.txt", true);
 					fileWriter.append("Win");
 					fileWriter.append("\n");
 					fileWriter.close();
@@ -325,7 +326,7 @@ public class BoardDisplayController {
 				else if (hardRadio.isSelected()) {
 					
 				try {
-					Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults3.txt", true);
+					Writer fileWriter = new FileWriter("MineSweeperResults3.txt", true);
 					fileWriter.append("Win");
 					fileWriter.append("\n");
 					fileWriter.close();
@@ -344,7 +345,7 @@ public class BoardDisplayController {
 				this.clearBoard();
 				if (easyRadio.isSelected()) {
 				try {
-				Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults.txt", true);
+				Writer fileWriter = new FileWriter("MineSweeperResults.txt", true);
 				fileWriter.append("Loss");
 				fileWriter.append("\n");
 				fileWriter.close();
@@ -357,7 +358,7 @@ public class BoardDisplayController {
 				else if (mediumRadio.isSelected()) {
 					
 					try {
-						Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults2.txt", true);
+						Writer fileWriter = new FileWriter("MineSweeperResults2.txt", true);
 						fileWriter.append("Loss");
 						fileWriter.append("\n");
 						fileWriter.close();
@@ -370,7 +371,7 @@ public class BoardDisplayController {
 					else if (hardRadio.isSelected()) {
 						
 					try {
-						Writer fileWriter = new FileWriter("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults3.txt", true);
+						Writer fileWriter = new FileWriter("MineSweeperResults3.txt", true);
 						fileWriter.append("Loss");
 						fileWriter.append("\n");
 						fileWriter.close();
@@ -470,7 +471,7 @@ public class BoardDisplayController {
 			dialogController.sethardWin("0");
 			dialogController.sethardLoss("0");
 			dialogStage.show();
-			try (Scanner scanner = new Scanner(new File("C:\\Users\\Matt Allen\\Documents\\MineSweeperResults.txt"))) {
+			try (Scanner scanner = new Scanner(new File("MineSweeperResults.txt"))) {
 
 		        while (scanner.hasNext())
 		            System.out.println(scanner.next());
