@@ -1,21 +1,37 @@
 package application;
 
+import javafx.fxml.FXMLLoader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.Writer;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+
 
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -60,6 +76,8 @@ public class BoardDisplayController {
 	
 	private long startTime;
 	Timer timer = new Timer();
+	private String time;
+	private String[] times = new String[] {"0","0","0"};
 	
 	private Board game;
 	private int mineTotal;
@@ -140,7 +158,6 @@ public class BoardDisplayController {
 			//System.out.println("Row added");
 		}
 		rightPane.getChildren().add(boardPane);
-		boardPane.setStyle("-fx-border-color: #000000");
 		boardPane.setMinSize(rightPane.getWidth(), rightPane.getHeight()-50);
 		boardPane.getRowConstraints().forEach(i -> i.setPercentHeight(100.0/boardPane.getRowConstraints().size()));
 		boardPane.getColumnConstraints().forEach(i -> i.setPercentWidth(100.0/boardPane.getColumnConstraints().size()));
@@ -168,9 +185,12 @@ public class BoardDisplayController {
 				Button button = new Button();
 				button.setOnAction(btnHandler);
 				button.setMaxSize(150, 150);
+				
+				button.setStyle("-fx-border-color: #737D84; -fx-background-color: #cbcfd6");
 				boardPane.add(button, i, j);
 				Cell thisCell = game.getCell(i, j);
 				Label cellLabel = new Label();
+				
 
 				if(!thisCell.mineCheck()) {
 					cellLabel.setText(thisCell.toString());
@@ -180,30 +200,39 @@ public class BoardDisplayController {
 					boardPane.add(cellLabel, i, j);
 					switch(thisCell.toString()) {
 					case "*":
-						cellLabel.setTextFill(Color.RED);
+						cellLabel.setStyle("-fx-background-color: #FF0000; -fx-border-color: #C0C0C0");
 						break;
 					case "1":
-						cellLabel.setTextFill(Color.DARKBLUE);
+						cellLabel.setStyle(" -fx-background-color: #000099; -fx-border-color: #C0C0C0");
+						cellLabel.setTextFill(Color.WHITE);
 						break;
 					case "2":
-						cellLabel.setTextFill(Color.DARKGREEN);
+						cellLabel.setStyle(" -fx-background-color: #009900; -fx-border-color: #C0C0C0");
+						cellLabel.setTextFill(Color.WHITE);
 						break;
 					case "3":
-						cellLabel.setTextFill(Color.DARKRED);
+						cellLabel.setStyle(" -fx-background-color: #990000; -fx-border-color: #C0C0C0");
+						cellLabel.setTextFill(Color.WHITE);
 						break;
 					case "4":
-						cellLabel.setTextFill(Color.BLUEVIOLET);
+						cellLabel.setStyle(" -fx-background-color: #6600CC; -fx-border-color: #C0C0C0");
+						cellLabel.setTextFill(Color.WHITE);
 						break;
 					case "5":
-						cellLabel.setTextFill(Color.DARKGOLDENROD);
+						cellLabel.setStyle(" -fx-background-color: #CCCC00; -fx-border-color: #C0C0C0");
+						cellLabel.setTextFill(Color.WHITE);
 						break;
 					default:
+						cellLabel.setStyle("-fx-border-color: #C0C0C0");
 						cellLabel.setTextFill(Color.BROWN);
 						break;
 					}
-					cellLabel.setStyle("-fx-font-weight: bold");
+					
+					
 					GridPane.setFillWidth(cellLabel, true);
+					GridPane.setFillHeight(cellLabel, true);
 					cellLabel.setMaxWidth(Double.MAX_VALUE);
+					cellLabel.setMaxHeight(Double.MAX_VALUE);
 					cellLabel.setAlignment(Pos.CENTER);
 					cellLabel.toBack();
 				} else {
@@ -212,8 +241,11 @@ public class BoardDisplayController {
 					bombImg.setFitWidth(27);
 					cellLabel.setGraphic(bombImg);
 					boardPane.add(cellLabel, i, j);
+					cellLabel.setStyle("-fx-background-color: #FF0000; -fx-border-color: #C0C0C0");
 					GridPane.setFillWidth(cellLabel, true);
+					GridPane.setFillHeight(cellLabel, true);
 					cellLabel.setMaxWidth(Double.MAX_VALUE);
+					cellLabel.setMaxHeight(Double.MAX_VALUE);
 					cellLabel.setAlignment(Pos.CENTER);
 					cellLabel.toBack();
 				}
@@ -273,18 +305,144 @@ public class BoardDisplayController {
 				resultLabel.setText("You win!");
 				resultLabel.setTextFill(Color.GREEN);
 				resultLabel.setVisible(true);
+				
+				//get timer result
 				timer.cancel();
+				time = timeField.getText();
+				System.out.println(time);
+				
+				//get contents of BestTimes.txt
+				File bestTimes = new File("BestTimes.txt");
+				try (Scanner scanner = new Scanner(bestTimes)) {
+			        for (int i = 0; i < 3; i++) {
+			        	times[i] = scanner.nextLine();
+			        	System.out.println(times[i]);
+			        }
+			           
+
+			    } catch (FileNotFoundException e) {} 
+				
+				//update best times
+				try (PrintWriter timeWriter = new PrintWriter(bestTimes)) {
+					if (easyRadio.isSelected()) {
+						if (Integer.parseInt(time) < Integer.parseInt(times[0])) {
+							times[0] = time;
+						}
+						timeWriter.write(times[0] + "\n" + times[1] + "\n" + times[2]);
+						System.out.println("file written");
+					}
+					else if (mediumRadio.isSelected()) {
+						if (Integer.parseInt(time) < Integer.parseInt(times[1])) {
+							times[1] = time;
+						}
+						timeWriter.write(times[0] + "\n" + times[1] + "\n" + times[2]);
+						System.out.println("file written");
+					}
+					else if (hardRadio.isSelected()) {
+						if (Integer.parseInt(time) < Integer.parseInt(times[2])) {
+							times[2] = time;
+						}
+						timeWriter.write(times[0] + "\n" + times[1] + "\n" + times[2]);
+						System.out.println("file written");
+					}
+					timeWriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				this.clearBoard();
+				if (easyRadio.isSelected()) {
+					
+					try {
+						//File res1 = new File("MineSweeperResults.txt");
+						Writer fileWriter = new FileWriter("MineSweeperResults.txt", true);
+						fileWriter.append("Win");
+						fileWriter.append("\n");
+						fileWriter.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+					}}
+
+					else if (mediumRadio.isSelected()) {
+						
+					try {
+						Writer fileWriter = new FileWriter("MineSweeperResults2.txt", true);
+						fileWriter.append("Win");
+						fileWriter.append("\n");
+						fileWriter.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+					}}
+					
+					else if (hardRadio.isSelected()) {
+						
+					try {
+						Writer fileWriter = new FileWriter("MineSweeperResults3.txt", true);
+						fileWriter.append("Win");
+						fileWriter.append("\n");
+						fileWriter.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+					
+					}}
+				
+
 			} else if(game.checkLoss()) {
 				resultLabel.setText("You lose!");
 				resultLabel.setTextFill(Color.RED);
 				resultLabel.setVisible(true);
 				timer.cancel();
 				this.clearBoard();
+				if (easyRadio.isSelected()) {
+					try {
+						Writer fileWriter = new FileWriter("MineSweeperResults.txt", true);
+						fileWriter.append("Loss");
+						fileWriter.append("\n");
+						fileWriter.close();
+					}
+					catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				else if (mediumRadio.isSelected()) {
+					
+					try {
+						Writer fileWriter = new FileWriter("MineSweeperResults2.txt", true);
+						fileWriter.append("Loss");
+						fileWriter.append("\n");
+						fileWriter.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+					}
+				}
+					
+				else if (hardRadio.isSelected()) {
+						
+					try {
+						Writer fileWriter = new FileWriter("MineSweeperResults3.txt", true);
+						fileWriter.append("Loss");
+						fileWriter.append("\n");
+						fileWriter.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+					
+					}
+				}
 			}
 		}
-
 	}
+	
 	
 	//Call this function to reveal buttons that are covering revealed cells.
 	public void checkReveal() {
@@ -335,6 +493,47 @@ public class BoardDisplayController {
 		resultLabel.setTextFill(Color.RED);
 		resultLabel.setVisible(true);
 		timer.cancel();
+		if (easyRadio.isSelected()) {
+			try {
+				Writer fileWriter = new FileWriter("MineSweeperResults.txt", true);
+				fileWriter.append("Loss");
+				fileWriter.append("\n");
+				fileWriter.close();
+			}
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else if (mediumRadio.isSelected()) {
+			
+			try {
+				Writer fileWriter = new FileWriter("MineSweeperResults2.txt", true);
+				fileWriter.append("Loss");
+				fileWriter.append("\n");
+				fileWriter.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
+		}
+			
+		else if (hardRadio.isSelected()) {
+				
+			try {
+				Writer fileWriter = new FileWriter("MineSweeperResults3.txt", true);
+				fileWriter.append("Loss");
+				fileWriter.append("\n");
+				fileWriter.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			
+			}
+		}
 	}
 	
 	@FXML
@@ -348,6 +547,50 @@ public class BoardDisplayController {
 	@FXML
 	public void showHistory() {
 		
-	}
-	
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/resultDisplay.fxml"));
+		AnchorPane dialogRoot;
+		
+		
+		try {
+			dialogRoot = (AnchorPane)loader.load();
+			Scene dialogScene = new Scene(dialogRoot);
+			Stage dialogStage = new Stage();
+			dialogStage.setScene(dialogScene);
+			resultDisplayController dialogController = (resultDisplayController) loader.getController();
+			dialogController.seteasyHigh("0");
+			dialogController.setmediumHigh("0");
+			dialogController.sethardHigh("0");
+			dialogController.seteasyWin("0");
+			dialogController.seteasyLoss("0");
+			dialogController.setmediumWin("0");
+			dialogController.setmediumLoss("0");
+			dialogController.sethardWin("0");
+			dialogController.sethardLoss("0");
+			dialogController.winLoss();
+
+			try (Scanner bestshow = new Scanner(new File("BestTimes.txt"))) {
+				for (int i = 0; i < 3; i++) {
+					String temp = bestshow.nextLine();
+					//if high score is still set to default
+					if (Integer.parseInt(temp) == 10000) {
+						temp = "No Data";
+					}
+		        	times[i] = temp;	        	
+		        }
+				dialogController.seteasyHigh(times[0]);
+				System.out.println(times[0]);
+				dialogController.setmediumHigh(times[1]);
+				System.out.println(times[1]);
+				dialogController.sethardHigh(times[2]);
+				System.out.println(times[2]);
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			
+			dialogStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}	
 }

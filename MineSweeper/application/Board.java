@@ -104,7 +104,7 @@ public class Board {
 			for(int j = 0; j < this.cellArray[i].length; j++) {
 				if((int) Math.abs(Math.sqrt((j - y) * (j - y) + (i - x) * (i - x))) == 1) {
 					//int distanceBetweenCells = (int) Math.abs(Math.sqrt((j - y) * (j - y) + (i - x) * (i - x)));
-					System.out.println("distance between (" + x + ", " + y + ") and (" + i + ", " + j + ") is " + (int) Math.abs(Math.sqrt((j - y) * (j - y) + (i - x) * (i - x))));
+					//System.out.println("distance between (" + x + ", " + y + ") and (" + i + ", " + j + ") is " + (int) Math.abs(Math.sqrt((j - y) * (j - y) + (i - x) * (i - x))));
 					if(!this.cellArray[i][j].toString().equals("*") && !this.cellArray[i][j].checkRevealed() && !this.cellArray[i][j].mineCheck()) {
 						adjacentList.add(cellArray[i][j]);
 					}
@@ -119,7 +119,7 @@ public class Board {
 	//this works recursively with revealSurrounding(Cell a, int x, int y) to reveal cells and recursively reveal adjacent blank cells
 	public void revealCell(Cell a, int x, int y) {
 		a.revealCell();
-		System.out.println(x + ", " + y + " revealed");
+		//System.out.println(x + ", " + y + " revealed");
 		if(a.getMineCount() == 0 && !a.mineCheck()) {
 			this.revealSurrounding(a, x, y);
 		}

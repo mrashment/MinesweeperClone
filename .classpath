@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="MineSweeper"/>
 	<classpathentry kind="output" path="MineSweeper"/>
 </classpath>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="MineSweeper"/>
+	<classpathentry kind="output" path="MineSweeper"/>
+</classpath>
+>>>>>>> refs/remotes/origin/BoardDisplay
