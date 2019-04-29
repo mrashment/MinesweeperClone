@@ -146,7 +146,7 @@ public class resultDisplayController {
 		        reader.close();
 
 		    } catch (IOException ex) {
-		        System.err.println("ERROR reading scores from file");
+		        System.err.println("ERROR reading scores from file/No Data to read");
 		    }
 		    
 		    //System.out.println("Wins: " + win );
@@ -208,8 +208,8 @@ public class resultDisplayController {
 		File history = new File("MineSweeperResults.txt");
 		history.delete();
 		File history2 = new File("MineSweeperResults2.txt");
-		history.delete();
+		history2.delete();
 		File history3 = new File("MineSweeperResults3.txt");
-		history.delete();
+		history3.delete();
 	}
 }
