@@ -298,13 +298,15 @@ public class BoardDisplayController {
 				resultLabel.setText("You win!");
 				resultLabel.setTextFill(Color.GREEN);
 				resultLabel.setVisible(true);
+				
+				//get timer result
 				timer.cancel();
 				time = timeField.getText();
 				System.out.println(time);
-				File bestTimes = new File("BestTimes.txt");
 				
+				//get contents of BestTimes.txt
+				File bestTimes = new File("BestTimes.txt");
 				try (Scanner scanner = new Scanner(bestTimes)) {
-					
 			        for (int i = 0; i < 3; i++) {
 			        	times[i] = scanner.nextLine();
 			        	System.out.println(times[i]);
@@ -312,6 +314,8 @@ public class BoardDisplayController {
 			           
 
 			    } catch (FileNotFoundException e) {} 
+				
+				//update best times
 				try (PrintWriter timeWriter = new PrintWriter(bestTimes)) {
 					if (easyRadio.isSelected()) {
 						if (Integer.parseInt(time) < Integer.parseInt(times[0])) {
@@ -342,6 +346,7 @@ public class BoardDisplayController {
 				if (easyRadio.isSelected()) {
 					
 					try {
+						//File res1 = new File("MineSweeperResults.txt");
 						Writer fileWriter = new FileWriter("MineSweeperResults.txt", true);
 						fileWriter.append("Win");
 						fileWriter.append("\n");
@@ -349,12 +354,11 @@ public class BoardDisplayController {
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					
-					}
-				}
+						
+					}}
 
-				else if (mediumRadio.isSelected()) {
-					
+					else if (mediumRadio.isSelected()) {
+						
 					try {
 						Writer fileWriter = new FileWriter("MineSweeperResults2.txt", true);
 						fileWriter.append("Win");
@@ -363,12 +367,11 @@ public class BoardDisplayController {
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						
+					}}
 					
-					}
-				}
-				
-				else if (hardRadio.isSelected()) {
-					
+					else if (hardRadio.isSelected()) {
+						
 					try {
 						Writer fileWriter = new FileWriter("MineSweeperResults3.txt", true);
 						fileWriter.append("Win");
@@ -377,10 +380,9 @@ public class BoardDisplayController {
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						
 					
-				
-					}
-				}
+					}}
 				
 
 			} else if(game.checkLoss()) {
@@ -516,14 +518,8 @@ public class BoardDisplayController {
 			dialogController.setmediumLoss("0");
 			dialogController.sethardWin("0");
 			dialogController.sethardLoss("0");
-			try (Scanner scanner = new Scanner(new File("MineSweeperResults.txt"))) {
+			dialogController.winLoss();
 
-		        while (scanner.hasNext())
-		            System.out.println(scanner.next());
-
-		    } catch (FileNotFoundException e) {
-		        e.printStackTrace();
-		    }
 			try (Scanner bestshow = new Scanner(new File("BestTimes.txt"))) {
 				for (int i = 0; i < 3; i++) {
 					String temp = bestshow.nextLine();
