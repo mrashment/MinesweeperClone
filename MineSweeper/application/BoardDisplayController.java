@@ -18,6 +18,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -156,7 +158,6 @@ public class BoardDisplayController {
 			//System.out.println("Row added");
 		}
 		rightPane.getChildren().add(boardPane);
-		boardPane.setStyle("-fx-border-color: #000000");
 		boardPane.setMinSize(rightPane.getWidth(), rightPane.getHeight()-50);
 		boardPane.getRowConstraints().forEach(i -> i.setPercentHeight(100.0/boardPane.getRowConstraints().size()));
 		boardPane.getColumnConstraints().forEach(i -> i.setPercentWidth(100.0/boardPane.getColumnConstraints().size()));
@@ -185,7 +186,7 @@ public class BoardDisplayController {
 				button.setOnAction(btnHandler);
 				button.setMaxSize(150, 150);
 				
-				button.setStyle("-fx-border-color: #d1d1d1");
+				button.setStyle("-fx-border-color: #737D84; -fx-background-color: #cbcfd6");
 				boardPane.add(button, i, j);
 				Cell thisCell = game.getCell(i, j);
 				Label cellLabel = new Label();
@@ -199,29 +200,35 @@ public class BoardDisplayController {
 					boardPane.add(cellLabel, i, j);
 					switch(thisCell.toString()) {
 					case "*":
-						cellLabel.setTextFill(Color.RED);
+						cellLabel.setStyle("-fx-background-color: #FF0000; -fx-border-color: #C0C0C0");
 						break;
 					case "1":
-						cellLabel.setTextFill(Color.DARKBLUE);
+						cellLabel.setStyle(" -fx-background-color: #000099; -fx-border-color: #C0C0C0");
+						cellLabel.setTextFill(Color.WHITE);
 						break;
 					case "2":
-						cellLabel.setTextFill(Color.DARKGREEN);
+						cellLabel.setStyle(" -fx-background-color: #009900; -fx-border-color: #C0C0C0");
+						cellLabel.setTextFill(Color.WHITE);
 						break;
 					case "3":
-						cellLabel.setTextFill(Color.DARKRED);
+						cellLabel.setStyle(" -fx-background-color: #990000; -fx-border-color: #C0C0C0");
+						cellLabel.setTextFill(Color.WHITE);
 						break;
 					case "4":
-						cellLabel.setTextFill(Color.BLUEVIOLET);
+						cellLabel.setStyle(" -fx-background-color: #6600CC; -fx-border-color: #C0C0C0");
+						cellLabel.setTextFill(Color.WHITE);
 						break;
 					case "5":
-						cellLabel.setTextFill(Color.DARKGOLDENROD);
+						cellLabel.setStyle(" -fx-background-color: #CCCC00; -fx-border-color: #C0C0C0");
+						cellLabel.setTextFill(Color.WHITE);
 						break;
 					default:
+						cellLabel.setStyle("-fx-border-color: #C0C0C0");
 						cellLabel.setTextFill(Color.BROWN);
 						break;
 					}
-					cellLabel.setStyle("-fx-font-weight: bold");
-					cellLabel.setStyle("-fx-border-color: #d1d1d1");
+					
+					
 					GridPane.setFillWidth(cellLabel, true);
 					GridPane.setFillHeight(cellLabel, true);
 					cellLabel.setMaxWidth(Double.MAX_VALUE);
@@ -234,7 +241,7 @@ public class BoardDisplayController {
 					bombImg.setFitWidth(27);
 					cellLabel.setGraphic(bombImg);
 					boardPane.add(cellLabel, i, j);
-					cellLabel.setStyle("-fx-border-color: #d1d1d1");
+					cellLabel.setStyle("-fx-background-color: #FF0000; -fx-border-color: #C0C0C0");
 					GridPane.setFillWidth(cellLabel, true);
 					GridPane.setFillHeight(cellLabel, true);
 					cellLabel.setMaxWidth(Double.MAX_VALUE);
@@ -486,6 +493,47 @@ public class BoardDisplayController {
 		resultLabel.setTextFill(Color.RED);
 		resultLabel.setVisible(true);
 		timer.cancel();
+		if (easyRadio.isSelected()) {
+			try {
+				Writer fileWriter = new FileWriter("MineSweeperResults.txt", true);
+				fileWriter.append("Loss");
+				fileWriter.append("\n");
+				fileWriter.close();
+			}
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else if (mediumRadio.isSelected()) {
+			
+			try {
+				Writer fileWriter = new FileWriter("MineSweeperResults2.txt", true);
+				fileWriter.append("Loss");
+				fileWriter.append("\n");
+				fileWriter.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
+		}
+			
+		else if (hardRadio.isSelected()) {
+				
+			try {
+				Writer fileWriter = new FileWriter("MineSweeperResults3.txt", true);
+				fileWriter.append("Loss");
+				fileWriter.append("\n");
+				fileWriter.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			
+			}
+		}
 	}
 	
 	@FXML

@@ -146,7 +146,7 @@ public class resultDisplayController {
 		        reader.close();
 
 		    } catch (IOException ex) {
-		        System.err.println("ERROR reading scores from file/No Data to read");
+		        System.err.println("ERROR reading scores from file");
 		    }
 		    
 		    //System.out.println("Wins: " + win );

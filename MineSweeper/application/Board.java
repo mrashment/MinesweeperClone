@@ -119,7 +119,7 @@ public class Board {
 	//this works recursively with revealSurrounding(Cell a, int x, int y) to reveal cells and recursively reveal adjacent blank cells
 	public void revealCell(Cell a, int x, int y) {
 		a.revealCell();
-		System.out.println(x + ", " + y + " revealed");
+		//System.out.println(x + ", " + y + " revealed");
 		if(a.getMineCount() == 0 && !a.mineCheck()) {
 			this.revealSurrounding(a, x, y);
 		}
