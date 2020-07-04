@@ -1,3 +1,3 @@
 # MinesweeperClone
 
-See documentation.pdf for overview.
+See [documentation](documentation.pdf) for overview.
